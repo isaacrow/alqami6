@@ -43,7 +43,7 @@ const usdzContentType: Plugin = {
 };
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/ALQAMI5/' : './',
+  base: './',
   plugins: [react(), usdzContentType, basicSsl()],
   server: {
     port: 5173,
