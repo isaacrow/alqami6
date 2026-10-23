@@ -1,0 +1,1043 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vision-glass-bg: linear-gradient(
+    145deg,
+    rgba(245, 249, 255, 0.2) 0%,
+    rgba(184, 203, 226, 0.1) 48%,
+    rgba(31, 43, 61, 0.16) 100%
+  );
+  --vision-glass-sidebar: linear-gradient(
+    180deg,
+    rgba(229, 239, 252, 0.16) 0%,
+    rgba(22, 33, 49, 0.2) 100%
+  );
+  --vision-ornament-bg: linear-gradient(
+    135deg,
+    rgba(244, 248, 255, 0.19) 0%,
+    rgba(119, 138, 164, 0.12) 50%,
+    rgba(23, 34, 51, 0.2) 100%
+  );
+  --vision-keyboard-bg: linear-gradient(
+    180deg,
+    rgba(227, 237, 252, 0.3) 0%,
+    rgba(24, 32, 48, 0.48) 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #08080a;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+}
+
+/* Exact VisionOS Card Hover Elevation & Glow (Matching Image 2) */
+.visionos-hover-card {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.visionos-hover-card:hover {
+  transform: translateY(-8px) scale(1.025);
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.75),
+              0 0 28px rgba(255, 255, 255, 0.22),
+              inset 0 1px 1px rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
+  backdrop-filter: blur(28px);
+  z-index: 10;
+}
+
+.visionos-hover-card:hover .card-thumb-container {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  transform: scale(1.015);
+}
+
+/* Pulsating Hotspot Pins for Room Bento (Image 1) */
+.room-hotspot-pin {
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.room-hotspot-pin:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  z-index: 30;
+}
+
+body.webxr-active {
+  background: transparent;
+}
+
+body.camera-passthrough-active {
+  background: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 3px;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  user-select: text;
+}
+
+/* 3D Spatial Perspective Stage */
+.spatial-stage {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Phone and tablet layout: keep the spatial shell inside the visible safe area. */
+.visionos-root {
+  height: 100dvh;
+  isolation: isolate;
+}
+
+@media (max-width: 640px) {
+  .visionos-shell-controls {
+    top: max(10px, env(safe-area-inset-top));
+    max-width: calc(100vw - 24px);
+  }
+
+  .xr-controls-root {
+    top: calc(max(10px, env(safe-area-inset-top)) + 48px);
+    right: max(12px, env(safe-area-inset-right));
+  }
+
+  .hand-gesture-hint {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-width: calc(100vw - 24px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .spatial-window-root {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 132px);
+  }
+
+  .spatial-window-top-ornament {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    overflow: hidden;
+  }
+
+  .spatial-safari-url-bar {
+    width: 100% !important;
+    height: 40px !important;
+  }
+
+  .spatial-window-left-ornament {
+    display: none;
+  }
+
+  /* Don't crush windows when they are placed inside the 3D Spatial World */
+  .spatial-window-world .spatial-window-left-ornament {
+    display: flex !important;
+  }
+
+  .spatial-window-world {
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  .spatial-window-surface {
+    border-radius: 24px !important;
+    overflow: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    touch-action: pan-y !important;
+    pointer-events: auto !important;
+  }
+
+  .spatial-window-surface::-webkit-scrollbar,
+  .control-center-panel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .spatial-window-root > .absolute.-bottom-7 {
+    bottom: max(-28px, calc(-28px + env(safe-area-inset-bottom)));
+  }
+
+  .spatial-window-root [title^="Drag to move"] {
+    min-height: 28px;
+    touch-action: none;
+  }
+
+  .spatial-window-root [title^="Drag corner"] {
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: none;
+  }
+
+  .home-app-row {
+    gap: 0.5rem !important;
+  }
+
+  .home-app-row > button > div:first-child {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 18px !important;
+  }
+
+  .launcher-content > div:first-child {
+    margin-bottom: 0.6rem !important;
+  }
+
+  .launcher-content > div:nth-child(2) {
+    gap: 0.65rem !important;
+  }
+
+  .spatial-keyboard-shell {
+    max-width: calc(100vw - 24px);
+  }
+
+  .spatial-keyboard-content {
+    border-radius: 24px !important;
+  }
+
+  .spatial-keyboard-content .vision-keycap {
+    width: auto !important;
+    min-width: 0;
+    flex: 1 1 0;
+    height: 42px !important;
+    font-size: 14px !important;
+  }
+
+  .spatial-keyboard-content .flex.justify-center.gap-2 {
+    gap: 4px !important;
+  }
+
+  .spatial-keyboard-content .px-4.pb-4.pt-1\.5 {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 10px;
+  }
+
+  .launcher-content ~ div[style*="translateZ"] {
+    margin-top: 0.75rem !important;
+  }
+
+  .control-center-panel-track {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - max(32px, env(safe-area-inset-top)) - max(24px, env(safe-area-inset-bottom)));
+    gap: 12px !important;
+    padding: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    transform: none !important;
+    touch-action: pan-x;
+  }
+
+  .control-center-panel-track > div {
+    flex: 0 0 min(248px, calc(100vw - 40px));
+    width: min(248px, calc(100vw - 40px)) !important;
+    height: min(368px, calc(100dvh - 140px)) !important;
+    scroll-snap-align: center;
+  }
+}
+
+/* Translucent, environment-reactive glass with a moving specular edge. */
+.vision-glass {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(132deg, rgba(255, 255, 255, 0.08), transparent 36%, rgba(179, 209, 255, 0.045) 72%, rgba(255, 255, 255, 0.045)),
+    var(--vision-glass-bg);
+  backdrop-filter: blur(21px) saturate(175%) brightness(1.08);
+  -webkit-backdrop-filter: blur(21px) saturate(175%) brightness(1.08);
+  box-shadow:
+    0 30px 82px -18px rgba(0, 0, 0, 0.43),
+    0 7px 24px -8px rgba(0, 0, 0, 0.24),
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.53),
+    inset 1px 0 0 rgba(255, 255, 255, 0.21),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.vision-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(72% 48% at 0% 0%, rgba(255, 255, 255, 0.15), transparent 75%),
+    linear-gradient(112deg, transparent 28%, rgba(255, 255, 255, 0.075) 41%, transparent 54%);
+  background-size: 100% 100%, 260% 260%;
+  background-position: center, -100% 50%;
+  background-repeat: no-repeat;
+  animation: liquid-refraction 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.vision-glass-dark {
+  background: var(--vision-glass-sidebar);
+  backdrop-filter: blur(28px) saturate(180%) brightness(1.04);
+  -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.04);
+  box-shadow:
+    0 28px 72px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    inset 1px 0 0 rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.vision-ornament {
+  background: var(--vision-ornament-bg);
+  backdrop-filter: blur(20px) saturate(185%) brightness(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(185%) brightness(1.08);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.38),
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.xr-control-option {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.075);
+  padding: 0 11px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  transition:
+    background 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+
+.xr-control-option:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.xr-control-option:active {
+  transform: scale(0.975);
+}
+
+.xr-control-option.is-active {
+  color: white;
+  background: rgba(77, 156, 255, 0.26);
+  border-color: rgba(151, 199, 255, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.xr-control-option.xr-control-primary {
+  background: linear-gradient(110deg, rgba(88, 147, 255, 0.28), rgba(174, 119, 255, 0.2));
+  border-color: rgba(195, 211, 255, 0.24);
+}
+
+.xr-control-option.xr-control-primary.is-active {
+  background: rgba(28, 176, 132, 0.25);
+  border-color: rgba(142, 248, 212, 0.36);
+}
+
+@keyframes liquid-refraction {
+  from {
+    background-position: center, -100% 50%;
+  }
+  to {
+    background-position: center, 100% 50%;
+  }
+}
+
+@keyframes panel-enter {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fadeIn {
+  animation: panel-enter 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* IKEA reference motion: glass panels resolve from a soft blur, then settle with
+   a restrained spring instead of popping between the catalog and product view. */
+@keyframes ikea-scene-arrive {
+  0% {
+    opacity: 0;
+    filter: blur(12px) saturate(1.12);
+    transform: translate3d(0, 18px, 0) scale(0.975);
+  }
+  72% {
+    opacity: 1;
+    filter: blur(0) saturate(1.02);
+    transform: translate3d(0, -2px, 0) scale(1.004);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0) saturate(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.ikea-scene-enter {
+  animation: ikea-scene-arrive 560ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  transform-origin: 50% 52%;
+  backface-visibility: hidden;
+}
+
+@keyframes ikea-scene-depart {
+  0% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 0; filter: blur(9px); transform: translate3d(0, -8px, 0) scale(0.99); }
+}
+
+.ikea-scene-leave {
+  animation: ikea-scene-depart 150ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+/* Exact 3D Model Inspect Pop-out Animation from large-thumbnail20230914-22636-1i3w6cl.mp4 */
+@keyframes ikea-volume-arrive {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ikea-volume-enter {
+  animation: ikea-volume-arrive 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ikea-volume-model-arrive {
+  0% {
+    opacity: 0;
+    transform: translate3d(-140px, 35px, -160px) scale(0.62);
+    filter: blur(14px);
+  }
+  65% {
+    opacity: 1;
+    transform: translate3d(0, -6px, 20px) scale(1.04);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.ikea-volume-model-enter {
+  animation: ikea-volume-model-arrive 580ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 50%;
+}
+
+@keyframes ikea-volume-depart {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ikea-volume-exit {
+  animation: ikea-volume-depart 320ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+@keyframes ikea-volume-model-depart {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-140px, 35px, -160px) scale(0.62);
+    filter: blur(12px);
+  }
+}
+
+.ikea-volume-model-exit {
+  animation: ikea-volume-model-depart 320ms cubic-bezier(0.4, 0, 1, 1) both;
+  transform-origin: 50% 50%;
+}
+
+@keyframes ikea-product-card-arrive {
+  0% { opacity: 0; filter: blur(8px); transform: translate3d(0, 14px, 0) scale(0.97); }
+  100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.ikea-product-card-enter {
+  animation: ikea-product-card-arrive 440ms cubic-bezier(0.2, 0.82, 0.2, 1) backwards;
+}
+
+@keyframes ikea-hero-arrive {
+  0% { opacity: 0; filter: blur(10px); transform: translate3d(0, 12px, 0) scale(0.985); }
+  100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.ikea-hero-arrive {
+  animation: ikea-hero-arrive 620ms cubic-bezier(0.18, 0.84, 0.24, 1) both;
+  transform-origin: 50% 50%;
+}
+
+@keyframes ikea-ar-glass-dissolve {
+  0% {
+    opacity: 0;
+    backdrop-filter: blur(0) brightness(1);
+    background-position: -120% 50%;
+    transform: scale(1);
+  }
+  24% {
+    opacity: 0.88;
+    backdrop-filter: blur(22px) brightness(1.1);
+  }
+  62% {
+    opacity: 0.66;
+    backdrop-filter: blur(34px) brightness(1.04);
+    background-position: 110% 50%;
+    transform: scale(1.025);
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(42px) brightness(1);
+    background-position: 160% 50%;
+    transform: scale(1.045);
+  }
+}
+
+.ikea-ar-dissolve {
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 54%, rgba(255,255,255,0.36), rgba(255,255,255,0.04) 68%),
+    linear-gradient(110deg, transparent 28%, rgba(255,255,255,0.38) 48%, transparent 68%);
+  background-size: 100% 100%, 220% 100%;
+  animation: ikea-ar-glass-dissolve 760ms cubic-bezier(0.22, 0.72, 0.2, 1) both;
+}
+
+/* Gaze Specular Hover Effect */
+.vision-btn {
+  position: relative;
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.2s ease,
+    box-shadow 0.22s ease;
+}
+
+.vision-btn:hover {
+  transform: scale(1.045) translateZ(6px);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.vision-btn:active {
+  transform: scale(0.96) translateZ(1px);
+}
+
+/* Spatial 3D Keyboard Keycap */
+.vision-keycap {
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.13) 100%
+  );
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.38),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.vision-keycap:hover {
+  transform: translateZ(10px) scale(1.08);
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.24) 100%
+  );
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.42),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.65);
+}
+
+.vision-keycap:active,
+.vision-keycap.key-pressed {
+  transform: translateZ(2px) scale(0.94);
+  background: rgba(255, 255, 255, 0.55);
+  color: #111;
+}
+
+/* Apple Intelligence Rainbow Glow Shader Animation */
+@keyframes ai-rainbow-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes ai-orb-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.06);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.ai-rainbow-border {
+  position: relative;
+}
+
+.ai-rainbow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    #4facfe,
+    #a18cd1,
+    #f093fb,
+    #f5576c,
+    #ff9a9e,
+    #fad0c4,
+    #4facfe
+  );
+  background-size: 300% 300%;
+  animation: ai-rainbow-shift 3.5s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.ai-rainbow-glow {
+  background: linear-gradient(
+    90deg,
+    rgba(79, 172, 254, 0.55),
+    rgba(161, 140, 209, 0.6),
+    rgba(245, 87, 108, 0.58),
+    rgba(255, 154, 158, 0.6),
+    rgba(250, 208, 196, 0.55)
+  );
+  background-size: 300% 300%;
+  animation: ai-rainbow-shift 3.5s ease infinite;
+  box-shadow:
+    0 0 28px rgba(240, 147, 251, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.ai-morph-sphere {
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(120, 190, 255, 0.7) 25%,
+      rgba(195, 110, 255, 0.75) 52%,
+      rgba(255, 105, 155, 0.8) 78%,
+      rgba(255, 180, 110, 0.6) 100%
+    );
+  box-shadow:
+    0 0 50px rgba(210, 120, 255, 0.65),
+    inset 0 0 30px rgba(255, 255, 255, 0.65);
+  animation: ai-orb-spin 4s linear infinite;
+}
+
+/* Custom Subtle Vision Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 640px) {
+  .home-app-row {
+    gap: 8px;
+  }
+
+  .home-app-row > button {
+    width: 70px;
+  }
+
+  .home-app-row > button > div:first-child {
+    width: 64px;
+    height: 64px;
+    border-radius: 19px;
+  }
+
+  .home-app-row > button > span {
+    max-width: 70px;
+    min-height: 24px;
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .launcher-sidebar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-fadeIn {
+    animation: none !important;
+  }
+}
+
+/* ─────────────────────────── Spatial World (iPhone Safari Real AR) ─────────────────────────── */
+
+.spatial-world-root {
+  perspective: none;
+  transform-style: flat;
+}
+
+.world-panel {
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  user-select: none;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  touch-action: pan-y !important;
+}
+
+.spatial-window-world {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  pointer-events: auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-font-smoothing: subpixel-antialiased;
+  touch-action: pan-y !important;
+}
+
+.spatial-window-world .spatial-window-surface {
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+}
+
+.world-object-ornament {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(18, 22, 32, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+  user-select: none;
+}
+
+.world-object-ornament button {
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.world-object-ornament button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.world-hud-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #fff;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.world-hud-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.world-hud-btn:active {
+  transform: scale(0.92);
+}
+
+/* Gaze + Micro-Pinch Focus Highlight (barehands / pinchplan) */
+.world-panel.spatial-gaze-focused .spatial-window-surface,
+.spatial-window-world.spatial-gaze-focused .spatial-window-surface {
+  box-shadow: 0 35px 95px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 45px rgba(0, 245, 212, 0.5) !important;
+  transform: scale(1.015);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+/* Dynamic Specular Glass Sheen (Satin Shader) */
+.spatial-window-world .spatial-window-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 650px at var(--satin-specular-x, 50%) var(--satin-specular-y, 30%),
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(255, 255, 255, 0.08) 38%,
+    transparent 70%
+  );
+  mix-blend-mode: overlay;
+  transition: opacity 0.25s ease;
+  z-index: 15;
+}
+
+/* Spatial Central Gaze Reticle */
+.spatial-gaze-reticle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 16px rgba(0, 245, 212, 0.5);
+  pointer-events: none;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background 0.15s ease, box-shadow 0.15s ease, width 0.15s ease, height 0.15s ease;
+  z-index: 55;
+}
+
+.spatial-gaze-reticle.has-target {
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.85), inset 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+.spatial-gaze-reticle.is-pinching {
+  transform: translate(-50%, -50%) scale(0.6);
+  background: #00f5d4;
+  border-color: #00f5d4;
+  box-shadow: 0 0 28px rgba(0, 245, 212, 1);
+}
+
+/* ==========================================================================
+   iPhone Duo Fold Carousel 3D Perspective Effects
+   Inspired by Kareem-AEz/iphone-duo-fold-carousel
+   Realistic dual-panel mechanical fold & split doors
+   ========================================================================== */
+
+.duo-fold-stage {
+  perspective: 1400px;
+  perspective-origin: center center;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.duo-fold-hinge-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.08) 65%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6), 0 0 2px rgba(255, 255, 255, 0.5);
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* Book fold leaf left to right */
+@keyframes duo-fold-turn-next {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(-90deg) scale(0.98);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes duo-fold-turn-prev {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg) scale(0.98);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Dynamic crease shadow */
+@keyframes duo-fold-shadow {
+  0% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 0.72;
+  }
+  52% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Dual door fold to World AR */
+@keyframes duo-door-left-open {
+  0% {
+    transform: perspective(1400px) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(-96deg) translateZ(-60px);
+    opacity: 0.15;
+  }
+}
+
+@keyframes duo-door-right-open {
+  0% {
+    transform: perspective(1400px) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(96deg) translateZ(-60px);
+    opacity: 0.15;
+  }
+}
+
+@keyframes duo-door-left-close {
+  0% {
+    transform: perspective(1400px) rotateY(-96deg) translateZ(-60px);
+    opacity: 0.15;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes duo-door-right-close {
+  0% {
+    transform: perspective(1400px) rotateY(96deg) translateZ(-60px);
+    opacity: 0.15;
+  }
+  100% {
+    transform: perspective(1400px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-duo-door-left-open {
+  transform-origin: left center;
+  animation: duo-door-left-open 0.75s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+.animate-duo-door-right-open {
+  transform-origin: right center;
+  animation: duo-door-right-open 0.75s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+.animate-duo-door-left-close {
+  transform-origin: left center;
+  animation: duo-door-left-close 0.65s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+.animate-duo-door-right-close {
+  transform-origin: right center;
+  animation: duo-door-right-close 0.65s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+

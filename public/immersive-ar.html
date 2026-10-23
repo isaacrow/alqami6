@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#cbc9c5" />
+    <title>Alqami · AR Manuscript & Spatial Heritage</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --bg-color: #cbc9c5;
+        --text-dark: #1e1e24;
+        --glass-bg: rgba(28, 28, 32, 0.78);
+        --glass-border: rgba(255, 255, 255, 0.22);
+        --accent-gold: #ffd60a;
+        --accent-blue: #0a84ff;
+        --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        --font-arabic: "Amiri", "Traditional Arabic", serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100dvh;
+        overflow: hidden;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        font-family: var(--font-sans);
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+      }
+
+      /* Vision Glass Header */
+      header {
+        position: fixed;
+        top: max(14px, env(safe-area-inset-top));
+        left: 16px;
+        right: 16px;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        color: #fff;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .back-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+      .back-btn:active { transform: scale(0.94); }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2px;
+      }
+
+      .brand-info h1 {
+        font-size: 14.5px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        line-height: 1.2;
+      }
+      .brand-info p {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.72);
+        letter-spacing: 0.2px;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .lang-btn {
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lang-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+      /* 3D Model Stage */
+      #stage {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        --poster-color: transparent;
+      }
+
+      /* AR Action Button */
+      .ar-launch-pill {
+        position: fixed;
+        bottom: max(26px, env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        background: var(--accent-gold);
+        color: #141416;
+        border: none;
+        border-radius: 999px;
+        padding: 13px 26px;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+      }
+      .ar-launch-pill:hover { transform: translateX(-50%) scale(1.04); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45); }
+      .ar-launch-pill:active { transform: translateX(-50%) scale(0.96); }
+
+      /* Alqami 4 Vision Pro Glass HUD Panel */
+      .alqami-hud {
+        position: fixed;
+        bottom: max(90px, env(safe-area-inset-bottom));
+        right: 18px;
+        width: min(390px, calc(100vw - 36px));
+        max-height: calc(100dvh - 170px);
+        background: var(--glass-bg);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        color: #fff;
+        z-index: 45;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      }
+
+      .hud-header {
+        padding: 16px 18px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .hud-title-wrap h2 {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+      .hud-title-wrap p {
+        font-size: 11px;
+        color: var(--accent-gold);
+        font-weight: 600;
+        margin-top: 2px;
+      }
+
+      .hud-collapse-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      /* Tabs */
+      .hud-tabs {
+        display: flex;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 0 12px;
+      }
+
+      .hud-tab-btn {
+        flex: 1;
+        padding: 10px 0;
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .hud-tab-btn.active {
+        color: #fff;
+        border-bottom: 2px solid var(--accent-gold);
+      }
+
+      .hud-content {
+        padding: 14px 16px;
+        overflow-y: auto;
+        max-height: 320px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .meta-card {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        padding: 9px 12px;
+      }
+      .meta-card.full { grid-column: 1 / -1; }
+
+      .meta-label {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 500;
+        margin-bottom: 3px;
+      }
+      .meta-val {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .description-box {
+        font-family: var(--font-arabic);
+        font-size: 15px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.92);
+        text-align: justify;
+      }
+
+      /* Collapsed HUD State on Mobile */
+      .alqami-hud.collapsed .hud-tabs,
+      .alqami-hud.collapsed .hud-content {
+        display: none;
+      }
+
+      @media (max-width: 640px) {
+        .alqami-hud {
+          right: 14px;
+          left: 14px;
+          width: auto;
+          bottom: max(84px, env(safe-area-inset-bottom));
+        }
+      }
+    </style>
+
+    <!-- Google Model Viewer component -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script src="https://unpkg.com/meshoptimizer@0.21.0/meshopt_decoder.js"></script>
+  </head>
+  <body>
+    <!-- Top Glass Header with Alqami Logo -->
+    <header>
+      <div class="header-left">
+        <button class="back-btn" type="button" aria-label="Go back" onclick="history.back()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="brand-lockup">
+          <img src="/logo.png" alt="Alqami" class="brand-logo" onerror="this.src='/alqami-logo.png'" />
+          <div class="brand-info">
+            <h1 id="header-title">مخطوط نهج البلاغة</h1>
+            <p id="header-subtitle">متحف علقمي المكاني · Alqami Heritage</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="lang-btn" class="lang-btn" type="button">English</button>
+      </div>
+    </header>
+
+    <!-- 3D Model Stage (Only the single selected model, no extra docks) -->
+    <div id="stage">
+      <model-viewer
+        id="artifact"
+        src="/models/nahj_al_balagha.glb"
+        alt="Alqami 3D Artifact"
+        camera-controls
+        touch-action="pan-y"
+        auto-rotate
+        rotation-per-second="18deg"
+        shadow-intensity="1.0"
+        shadow-softness="0.9"
+        exposure="1.05"
+        environment-image="neutral"
+        ar
+        ar-modes="quick-look scene-viewer webxr"
+        ar-scale="auto"
+        loading="eager"
+      >
+        <button slot="ar-button" class="ar-launch-pill" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 18px; height: 18px;">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          </svg>
+          <span id="ar-btn-label">عرض في الواقع المعزز (View in AR)</span>
+        </button>
+      </model-viewer>
+    </div>
+
+    <!-- Alqami 4 Vision Glass Metadata & Details HUD -->
+    <div class="alqami-hud" id="hud-panel">
+      <div class="hud-header">
+        <div class="hud-title-wrap">
+          <h2 id="hud-title">نهج البلاغة</h2>
+          <p id="hud-code">1022 هـ / مخطوط نادر</p>
+        </div>
+        <button class="hud-collapse-btn" id="toggle-hud-btn" type="button" aria-label="Toggle details">▾</button>
+      </div>
+
+      <div class="hud-tabs">
+        <button class="hud-tab-btn active" data-tab="meta" id="tab-meta-btn">بيانات القطعة</button>
+        <button class="hud-tab-btn" data-tab="desc" id="tab-desc-btn">الوصف التاريخي</button>
+      </div>
+
+      <div class="hud-content">
+        <!-- Metadata Tab -->
+        <div id="tab-meta-content" class="tab-view">
+          <div class="meta-grid">
+            <div class="meta-card">
+              <div class="meta-label" id="label-creator">المنشئ / الشارح</div>
+              <div class="meta-val" id="val-creator">الشريف الرضي (ت 406 هـ)</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label" id="label-period">الحقبة / التاريخ</div>
+              <div class="meta-val" id="val-period">1022 هـ (القرن 17 م)</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label" id="label-extent">القياسات / الأبعاد</div>
+              <div class="meta-val" id="val-extent">28.5 × 18.2 سم (477 ورقة)</div>
+            </div>
+            <div class="meta-card">
+              <div class="meta-label" id="label-institution">جهة الحفظ</div>
+              <div class="meta-val" id="val-institution">مكتبة العتبة الرضوية</div>
+            </div>
+            <div class="meta-card full">
+              <div class="meta-label" id="label-material">المادة والخط</div>
+              <div class="meta-val" id="val-material">ورق مجدول ومذهب، حبر أسود، مداد أحمر، خط النسخ الأصيل</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Tab -->
+        <div id="tab-desc-content" class="tab-view" style="display: none;">
+          <p class="description-box" id="val-description">
+            نسخة خطية من مخطوط نهج البلاغة، تُنسب إلى الشريف الرضي الذي جمعها وشرحها، تتميز هذه النسخة بخط جميل وواضح، وتحتوي على زخارف وهامش مذهب، وهي من أقدم النسخ المحفوظة التي تحمل هذا النص القيّم.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data & Controller Script -->
+    <script>
+      const ARTIFACTS_DATA = {
+        'nahj_al_balagha': {
+          title: { ar: 'مخطوط نهج البلاغة', en: 'Nahj al-Balagha Manuscript' },
+          code: '1022 هـ / مخطوط نادر',
+          creator: { ar: 'الشريف الرضي • الناسخ: شمس الدين الشيرازي', en: 'Al-Sharif al-Radi • Scribe: Shams al-Din' },
+          period: { ar: '1022 هـ (القرن 17 م)', en: '1022 AH (17th Century CE)' },
+          extent: { ar: '28.5 × 18.2 سم (477 ورقة)', en: '28.5 × 18.2 cm (477 folios)' },
+          institution: { ar: 'مكتبة العتبة الرضوية المقدسة', en: 'Astan Quds Central Library' },
+          material: { ar: 'ورق مجدول ومذهب، حبر أسود، مداد أحمر، خط النسخ', en: 'Gold-ruled paper, carbon ink, cinnabar rubrication, Naskh script' },
+          description: {
+            ar: 'نسخة خطية من مخطوط نهج البلاغة، تُنسب إلى الشريف الرضي الذي جمعها وشرحها، تتميز هذه النسخة بخط جميل وواضح، وتحتوي على زخارف وهامش مذهب، وهي من أقدم النسخ المحفوظة التي تحمل هذا النص القيّم.',
+            en: 'Illuminated manuscript of Nahj al-Balagha compiled by Al-Sharif al-Radi, transcribed in 1022 AH with ornate gold borders, intricate arabesque frontispiece, and red ink chapter markings.'
+          }
+        },
+        'Old_Islamic_Helmet': {
+          title: { ar: 'خوذة حربية إسلامية مذهبة', en: 'Old Islamic Gilded Battle Helmet' },
+          code: 'HLM-OTT-15',
+          creator: { ar: 'صناع السلاح العثمانيون', en: 'Ottoman Imperial Armourers' },
+          period: { ar: 'أواخر القرن 15 م', en: 'Late 15th Century' },
+          extent: { ar: 'ارتفاع 34 سم × قطر 23 سم (1.8 كغ)', en: '34 cm H × 23 cm Dia (1.8 kg)' },
+          institution: { ar: 'متحف توبكابي سراي • إسطنبول', en: 'Topkapi Palace Museum' },
+          material: { ar: 'فولاذ مسبوك، نقش تذهيبي دمشقي، آيات قرآنية بالثلث', en: 'Forged steel, gold damascening, Thuluth calligraphic cartouches' },
+          description: {
+            ar: 'خوذة حربية ذات قبة مخروطية مدببة مزخرفة بآية الكرسي وحلقات درع زردي لحماية الرقبة والخدين.',
+            en: 'Conical Ottoman turban helmet forged from crucible steel with intricate gold damascened calligraphy featuring the Throne Verse.'
+          }
+        },
+        'Zulfiqar_Sword': {
+          title: { ar: 'سيف ذو الفقار التاريخي', en: 'Historic Zulfiqar Scimitar' },
+          code: 'SWD-OTT-16',
+          creator: { ar: 'حدادو دمشق الأوائل', en: 'Master Damascus Swordsmiths' },
+          period: { ar: 'القرن 16 م (تطريز موروث)', en: '16th Century Damascus Work' },
+          extent: { ar: 'طول 98 سم × عرض 6 سم (1.4 كغ)', en: '98 cm L × 6 cm W (1.4 kg)' },
+          institution: { ar: 'الخزانة الإمبراطورية • قصر طوب قابي', en: 'Imperial Armoury, Topkapi' },
+          material: { ar: 'صلب جوهري دمشقي مطعم بالذهب الخالص', en: 'Watered Damascus crucible steel, pure gold wire inlays' },
+          description: {
+            ar: 'شفرة فولاذية دمشقية مزدوجة الرأس مستوحاة من سيف الإمام علي عليه السلام، منقوش عليها عبارة "لا فتى إلا علي ولا سيف إلا ذو الفقار".',
+            en: 'Iconic bifurcated double-tipped scimitar forged with flowing wootz steel pattern, inscribed with historical Quranic verses.'
+          }
+        },
+        'babylonian_map': {
+          title: { ar: 'خريطة بابل للعالم (إيماجو موندي)', en: 'Babylonian Map of the World (Imago Mundi)' },
+          code: 'BM 92687',
+          creator: { ar: 'نساخ وعلماء بابل', en: 'Babylonian Scribes' },
+          period: { ar: 'القرن السادس قبل الميلاد', en: '6th Century BCE' },
+          extent: { ar: '12.2 × 8.2 سم (لوح طيني)', en: '12.2 × 8.2 cm Clay Tablet' },
+          institution: { ar: 'المتحف البريطاني • لندن', en: 'British Museum (BM 92687)' },
+          material: { ar: 'طين بابلي مشوي مع خط مسماري أكدي', en: 'Baked clay with Akkadian cuneiform inscriptions' },
+          description: {
+            ar: 'أقدم خريطة جغرافية فلكية معروفة للعالم القديم، تُظهر مدينة بابل في المركز ونهر الفرات والمحيط المر ومثلثات الجزر البعيدة.',
+            en: 'The oldest known geographic world map, showing Babylon on the Euphrates encircled by the bitter ocean stream.'
+          }
+        },
+        'prayer_niche_mihrab': {
+          title: { ar: 'محراب صلاة كاشاني مزجج', en: 'Lustre-Glazed Kashan Prayer Niche' },
+          code: 'MHR-KAS-14',
+          creator: { ar: 'ورش خزف كاشان', en: 'Kashan Ceramic Masters' },
+          period: { ar: 'القرن 14 م (العصر الإيلخاني)', en: '14th Century Ilkhanid Period' },
+          extent: { ar: 'ارتفاع 285 سم × عرض 175 سم', en: '285 cm H × 175 cm W' },
+          institution: { ar: 'متحف فيكتوريا وألبرت', en: 'Victoria and Albert Museum' },
+          material: { ar: 'خزف ذو بريق معدني مع خط كوفي ونسخي', en: 'Lustre-painted and cobalt-glazed fritware tiles' },
+          description: {
+            ar: 'محراب إسلامي بديع مكسو ببلاطات خزفية ذات بريق معدني مزينة بآيات من سورة الإسراء ونقوش نباتية مورقة.',
+            en: 'Monumental architectural mihrab comprised of interlocking lustre and cobalt-glazed ceramic tiles bearing Quranic inscriptions.'
+          }
+        }
+      };
+
+      let currentLang = 'ar';
+      const query = new URLSearchParams(location.search);
+      const modelSource = query.get('model') || '/models/nahj_al_balagha.glb';
+      const customTitle = query.get('title');
+
+      // Determine matching artifact
+      let currentArtifactKey = 'nahj_al_balagha';
+      for (const key of Object.keys(ARTIFACTS_DATA)) {
+        if (modelSource.toLowerCase().includes(key.toLowerCase())) {
+          currentArtifactKey = key;
+          break;
+        }
+      }
+      const artifact = ARTIFACTS_DATA[currentArtifactKey] || ARTIFACTS_DATA['nahj_al_balagha'];
+
+      // Setup viewer
+      const viewer = document.getElementById('artifact');
+      viewer.src = modelSource;
+      viewer.alt = customTitle || artifact.title[currentLang];
+
+      function updateUI() {
+        const isAr = currentLang === 'ar';
+        document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+        document.documentElement.lang = currentLang;
+
+        document.getElementById('header-title').textContent = customTitle || artifact.title[currentLang];
+        document.getElementById('header-subtitle').textContent = isAr ? 'متحف علقمي المكاني · Alqami Heritage' : 'Alqami Spatial AR Museum';
+        document.getElementById('lang-btn').textContent = isAr ? 'English' : 'عربي';
+
+        document.getElementById('hud-title').textContent = customTitle || artifact.title[currentLang];
+        document.getElementById('hud-code').textContent = artifact.code;
+
+        document.getElementById('tab-meta-btn').textContent = isAr ? 'بيانات القطعة' : 'Metadata';
+        document.getElementById('tab-desc-btn').textContent = isAr ? 'الوصف التاريخي' : 'Description';
+
+        document.getElementById('label-creator').textContent = isAr ? 'المنشئ / الشارح' : 'Creator';
+        document.getElementById('val-creator').textContent = artifact.creator[currentLang] || artifact.creator.ar;
+
+        document.getElementById('label-period').textContent = isAr ? 'الحقبة / التاريخ' : 'Period';
+        document.getElementById('val-period').textContent = artifact.period[currentLang] || artifact.period.ar;
+
+        document.getElementById('label-extent').textContent = isAr ? 'القياسات / الأبعاد' : 'Extent';
+        document.getElementById('val-extent').textContent = artifact.extent[currentLang] || artifact.extent.ar;
+
+        document.getElementById('label-institution').textContent = isAr ? 'جهة الحفظ' : 'Repository';
+        document.getElementById('val-institution').textContent = artifact.institution[currentLang] || artifact.institution.ar;
+
+        document.getElementById('label-material').textContent = isAr ? 'المادة والخط' : 'Material';
+        document.getElementById('val-material').textContent = artifact.material[currentLang] || artifact.material.ar;
+
+        document.getElementById('val-description').textContent = artifact.description[currentLang] || artifact.description.ar;
+        document.getElementById('ar-btn-label').textContent = isAr ? 'معاينة في الواقع المعزز (View in AR)' : 'View in your space (AR)';
+      }
+
+      // Language Switcher
+      document.getElementById('lang-btn').addEventListener('click', () => {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        updateUI();
+      });
+
+      // Tabs Logic
+      const tabMetaBtn = document.getElementById('tab-meta-btn');
+      const tabDescBtn = document.getElementById('tab-desc-btn');
+      const tabMetaContent = document.getElementById('tab-meta-content');
+      const tabDescContent = document.getElementById('tab-desc-content');
+
+      tabMetaBtn.addEventListener('click', () => {
+        tabMetaBtn.classList.add('active');
+        tabDescBtn.classList.remove('active');
+        tabMetaContent.style.display = 'block';
+        tabDescContent.style.display = 'none';
+      });
+
+      tabDescBtn.addEventListener('click', () => {
+        tabDescBtn.classList.add('active');
+        tabMetaBtn.classList.remove('active');
+        tabMetaContent.style.display = 'none';
+        tabDescContent.style.display = 'block';
+      });
+
+      // Collapse HUD
+      const hudPanel = document.getElementById('hud-panel');
+      const toggleHudBtn = document.getElementById('toggle-hud-btn');
+      toggleHudBtn.addEventListener('click', () => {
+        const isCollapsed = hudPanel.classList.toggle('collapsed');
+        toggleHudBtn.textContent = isCollapsed ? '▴' : '▾';
+      });
+
+      updateUI();
+    </script>
+  </body>
+</html>
