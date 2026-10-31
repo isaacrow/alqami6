@@ -90,6 +90,9 @@ const Spatial3DStudioApp = lazy(() =>
 const SpatialToolsHubApp = lazy(() =>
   import('./components/apps/SpatialToolsHubApp').then((module) => ({ default: module.SpatialToolsHubApp }))
 );
+const isTouchPhone = () =>
+  /iPhone|iPod|Android/i.test(navigator.userAgent) || window.matchMedia('(max-width: 768px) and (pointer: coarse)').matches;
+
 const AlqamiARKitObjectScanner = lazy(() =>
   import('./components/apps/AlqamiARKitObjectScanner').then((module) => ({
     default: module.AlqamiARKitObjectScanner,
@@ -388,8 +391,16 @@ export function App() {
 
   // Start hand gestures only after Safari has a real camera stream. Starting the hand
   // tracker while getUserMedia is still pending makes it request a second camera stream.
+  // Auto-start happens once per visit to the world (so the hand button can turn it off again), and never on
+  // phones, where the tracker on top of the camera and the 3D world runs Safari out of memory.
+  const handAutoStartedRef = useRef(false);
   useEffect(() => {
-    if (!xrState.spatialWorldActive || !xrState.cameraActive || xrState.handTrackingActive) return;
+    if (!xrState.spatialWorldActive) {
+      handAutoStartedRef.current = false;
+      return;
+    }
+    if (!xrState.cameraActive || xrState.handTrackingActive || handAutoStartedRef.current || isTouchPhone()) return;
+    handAutoStartedRef.current = true;
     setXrState((prev) =>
       prev.spatialWorldActive && prev.cameraActive && !prev.handTrackingActive
         ? { ...prev, handTrackingActive: true }
@@ -991,7 +1002,9 @@ export function App() {
       gyroActive: next ? true : prev.gyroActive,
       alqamiModeActive: false,
       objectTracking3DActive: false,
-      handTrackingActive: next,
+      // The hand tracker (MediaPipe WASM + model) on top of the camera and the 3D world runs iPhone Safari
+      // out of memory, so phones enter AR without it; the hand button in the world still turns it on.
+      handTrackingActive: next && !isTouchPhone(),
     }));
   };
 

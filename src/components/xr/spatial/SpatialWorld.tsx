@@ -11,7 +11,7 @@ import { createPortal } from 'react-dom';
 import * as THREE from 'three';
 import { CSS3DObject, CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { downscaleTextures, getDracoLoader, isPhoneViewport } from '../../../utils/modelMemory';
 import { Box, Camera, Compass, Crosshair, Hand, Layers, LayoutGrid, LogOut, Mountain, Navigation, PenTool, QrCode, RotateCcw, SlidersHorizontal, Trash2, Undo2 } from 'lucide-react';
 import { OrientationTracker, requestMotionPermission } from './orientationTracker';
 import { createLovbackenModel, disposeThreeObject } from '../../three/LovbackenModel';
@@ -1233,9 +1233,7 @@ export const SpatialWorld: React.FC<SpatialWorldProps> = ({
 
       if (artifactDetail?.glb) {
         const loader = new GLTFLoader();
-        const dracoLoader = new DRACOLoader();
-        dracoLoader.setDecoderPath(assetUrl('draco/'));
-        loader.setDRACOLoader(dracoLoader);
+        loader.setDRACOLoader(getDracoLoader());
         retryModelLoad = () => loader.load(
           assetUrl(artifactDetail.glb!),
           (gltf) => {
@@ -1244,6 +1242,7 @@ export const SpatialWorld: React.FC<SpatialWorldProps> = ({
               return;
             }
             const root = gltf.scene;
+            if (isPhoneViewport()) downscaleTextures(root, 512);
             const box = new THREE.Box3().setFromObject(root);
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
