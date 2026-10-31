@@ -20,6 +20,68 @@ export interface ArtifactFeaturePoint {
   onInspect?: () => void;
 }
 
+// One Draco decoder (and its worker pool) shared by every viewer, instead of one per canvas.
+let sharedDracoLoader: DRACOLoader | null = null;
+function getDracoLoader(): DRACOLoader {
+  if (!sharedDracoLoader) {
+    sharedDracoLoader = new DRACOLoader();
+    const dracoAbsolute = new URL(assetUrl('draco/'), window.location.href).href;
+    sharedDracoLoader.setDecoderPath(dracoAbsolute.endsWith('/') ? dracoAbsolute : `${dracoAbsolute}/`);
+    sharedDracoLoader.setWorkerLimit(2);
+  }
+  return sharedDracoLoader;
+}
+
+const TEXTURE_KEYS = [
+  'map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap', 'bumpMap',
+  'specularIntensityMap', 'specularColorMap', 'clearcoatMap', 'clearcoatNormalMap', 'clearcoatRoughnessMap',
+  'transmissionMap', 'thicknessMap', 'sheenColorMap', 'sheenRoughnessMap', 'iridescenceMap',
+] as const;
+
+// iPhone Safari kills the tab when a page holds too much texture memory (the helmet alone is 36 × 1024² maps),
+// so on phones every model texture is shrunk to at most maxSize before it reaches the GPU.
+function downscaleTextures(root: THREE.Object3D, maxSize: number) {
+  const done = new Set<THREE.Texture>();
+  root.traverse((child) => {
+    const mesh = child as THREE.Mesh;
+    if (!mesh.isMesh || !mesh.material) return;
+    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    materials.forEach((mat) => {
+      TEXTURE_KEYS.forEach((key) => {
+        const tex = (mat as unknown as Record<string, THREE.Texture | null | undefined>)[key];
+        if (!tex || done.has(tex)) return;
+        done.add(tex);
+        const img = tex.image as (HTMLImageElement | ImageBitmap | HTMLCanvasElement) | undefined;
+        const w = img && ('naturalWidth' in img ? img.naturalWidth : img.width);
+        const h = img && ('naturalHeight' in img ? img.naturalHeight : img.height);
+        if (!img || !w || !h || Math.max(w, h) <= maxSize) return;
+        const scale = maxSize / Math.max(w, h);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(w * scale));
+        canvas.height = Math.max(1, Math.round(h * scale));
+        canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        if ('close' in img && typeof img.close === 'function') img.close();
+        tex.image = canvas;
+        tex.needsUpdate = true;
+      });
+    });
+  });
+}
+
+function disposeObject(root: THREE.Object3D) {
+  root.traverse((child) => {
+    const mesh = child as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    mesh.geometry?.dispose();
+    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    materials.forEach((mat) => {
+      if (!mat) return;
+      TEXTURE_KEYS.forEach((key) => (mat as unknown as Record<string, THREE.Texture | null | undefined>)[key]?.dispose());
+      mat.dispose();
+    });
+  });
+}
+
 interface AlqamiArtifact3DCanvasProps {
   glbUrl: string;
   autoRotate?: boolean;
@@ -53,9 +115,24 @@ export const AlqamiArtifact3DCanvas: React.FC<AlqamiArtifact3DCanvasProps> = ({
 
   const isAr = lang === 'ar';
 
+  // Only hold a WebGL context while the viewer is on (or near) the screen; a page full of live
+  // contexts runs iPhone Safari out of memory.
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = mountRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: '150px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   useEffect(() => {
     const container = mountRef.current;
-    if (!container) return;
+    if (!container || !inView) return;
 
     setLoading(true);
 
@@ -138,16 +215,12 @@ export const AlqamiArtifact3DCanvas: React.FC<AlqamiArtifact3DCanvasProps> = ({
     const modelRoot = new THREE.Group();
     scene.add(modelRoot);
     const loader = new GLTFLoader();
-    const dracoLoader = new DRACOLoader();
     try {
-      const rawDraco = assetUrl('draco/');
-      const dracoAbsolute = new URL(rawDraco, window.location.href).href;
-      dracoLoader.setDecoderPath(dracoAbsolute.endsWith('/') ? dracoAbsolute : `${dracoAbsolute}/`);
-      dracoLoader.preload();
-      loader.setDRACOLoader(dracoLoader);
+      loader.setDRACOLoader(getDracoLoader());
     } catch (e) {
       console.warn('Draco setup warning:', e);
     }
+    let loadedRoot: THREE.Object3D | null = null;
 
     let disposed = false;
     const safetyTimer = window.setTimeout(() => {
@@ -158,9 +231,14 @@ export const AlqamiArtifact3DCanvas: React.FC<AlqamiArtifact3DCanvasProps> = ({
       assetUrl(glbUrl),
       (gltf) => {
         window.clearTimeout(safetyTimer);
-        if (disposed) return;
+        if (disposed) {
+          disposeObject(gltf.scene);
+          return;
+        }
         try {
           const root = gltf.scene;
+          loadedRoot = root;
+          if (isMobile) downscaleTextures(root, 512);
           root.updateMatrixWorld(true);
           root.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
@@ -425,11 +503,15 @@ export const AlqamiArtifact3DCanvas: React.FC<AlqamiArtifact3DCanvasProps> = ({
       container.removeEventListener('touchstart', onTouchStart);
       container.removeEventListener('touchmove', onTouchMove);
       container.removeEventListener('touchend', onTouchEnd);
+      if (loadedRoot) disposeObject(loadedRoot);
+      shadowGeo.dispose();
+      shadowMat.dispose();
+      shadowTex.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
-      dracoLoader.dispose();
+      renderer.domElement.remove();
     };
-  }, [glbUrl, mode]);
+  }, [glbUrl, mode, inView]);
 
   return (
     <div className={`relative w-full h-full flex items-center justify-center select-none pointer-events-auto overflow-visible ${className}`}>
