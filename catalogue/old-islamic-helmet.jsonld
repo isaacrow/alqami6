@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "خوذة إسلامية حربية مذهبة",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "خوذة خيالة عثمانية مصفحة مع أنفية ودرع زرد (القرن 15 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Old Islamic Gilded Helmet",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Ottoman cavalry helmet with mail aventail, 15th century.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "الأسلحة والقطع الحربية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Artifact",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "15th century",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "خوذة حربية مخروطية الشكل مصنوعة من الفولاذ الصلب المنقوش بآيات النصر والفتح ومكفتة بخيوط الذهب، مع درع زردي متدلي لحماية العنق والرقبة وقضيب حماية الأنف المتحرك.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Conical Ottoman turban helmet of forged steel, inscribed with calligraphic cartouches in gold damascening, complete with nasal bar and interlocking steel mail aventail.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "خوذة إسلامية حربية مذهبة",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "خوذة خيالة عثمانية مصفحة مع أنفية ودرع زرد (القرن 15 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Old Islamic Gilded Helmet",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Ottoman cavalry helmet with mail aventail, 15th century.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "حدادو البلاط السلطاني العثماني",
+          "@language": "ar"
+        },
+        {
+          "@value": "Imperial Ottoman Armory",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "الارتفاع: 34 سم • القطر: 22 سم • الوزن: 1.8 كجم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-HLM-004",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "فولاذ كربوني مقسى، تذهيب مكفت عيار 24، حلقات حديد مشبك",
+              "@language": "ar"
+            },
+            {
+              "@value": "Tempered carbon steel, 24k gold inlay, riveted iron mail rings",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "تحفة متحفية بحالة استثنائية مع لمعان النحاس والذهب الأصلي",
+              "@language": "ar"
+            },
+            {
+              "@value": "Museum grade with intact mail aventail and original gilt sheen",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-islamic-helmet#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "HLM-OTT-15"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "المتحف العسكري • مستودع علقمي الرقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Military Museum Collection • Alqami",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/Old_Islamic_Helmet.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

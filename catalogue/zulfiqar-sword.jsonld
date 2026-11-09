@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "سيف ذو الفقار التاريخي",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "سيف عثماني مرصع بالذهب (القرن 16-17 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Zulfiqar Sword Artifact",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Ottoman ceremonial sword, 16th–17th century.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "الأسلحة والقطع الحربية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Artifact",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "16th–17th century",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "سيف تاريخي احتفالي مستوحى من طراز ذي الفقار الشهير، مصوغ من الفولاذ الدمشقي الجوهري، مع مقبض مطعم بالعاج ونصل منقوش بآيات قرآنية مطلية بالذهب الخالص.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Historic ceremonial curved scimitar forged from folded Damascus crucible steel, decorated with Quranic calligraphic cartouches inlaid with 24k gold, and ivory hilt.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "سيف ذو الفقار التاريخي",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "سيف عثماني مرصع بالذهب (القرن 16-17 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Zulfiqar Sword Artifact",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Ottoman ceremonial sword, 16th–17th century.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "صناع السلاح الإمبراطوري في إسطنبول",
+          "@language": "ar"
+        },
+        {
+          "@value": "Imperial Armoury Craftsmen",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "الطول الكلي: 96 سم • وزن النصل: 980 غرام",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-SWD-002",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "فولاذ دمشقي ووتز، ذهب عيار 24 مطروق، عاج طبيعي",
+              "@language": "ar"
+            },
+            {
+              "@value": "Pattern-welded Wootz steel, 24k gold koftgari inlay, ivory",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "حد السيف ناصع، خالي من الأكسدة، الغمد الخشبي مكسو بالجلد المخملي",
+              "@language": "ar"
+            },
+            {
+              "@value": "Mint preserved blade edge, wood scabbard bound in crimson velvet",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/zulfiqar-sword#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "SWD-OTT-16"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مجموعة الأسلحة الإسلامية • علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Alqami Islamic Arms & Armour Collection",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/Zulfiqar_Sword.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

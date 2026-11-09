@@ -26,9 +26,6 @@ export interface AlqamiArtifact {
     ar: string;
     en: string;
   };
-  price: number;
-  rating: number;
-  reviewsCount: number;
   itemCode: string;
   image: string;
   model: {
@@ -40,6 +37,8 @@ export interface AlqamiArtifact {
     ar: string;
     en: string;
   };
+  /** The published Moon record this object is catalogued as (mooon.site); Moon is then the source of its details. */
+  moonRecordId?: string;
   details: {
     dimensions: string;
     material: { ar: string; en: string };
@@ -81,9 +80,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مكتبة العتبة الرضوية المقدسة (1861) • مستودع علقمي الرقمي',
       en: 'Central Library of Astan Quds Razavi • Alqami Repository',
     },
-    price: 149,
-    rating: 4.0,
-    reviewsCount: 12,
     itemCode: '1022 هـ / هـ',
     image: '/images/model-nahj_al_balagha.png',
     model: {
@@ -155,9 +151,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'المتحف العسكري • مستودع علقمي الرقمي',
       en: 'Military Museum Collection • Alqami',
     },
-    price: 220,
-    rating: 4.9,
-    reviewsCount: 34,
     itemCode: 'HLM-OTT-15',
     image: '/images/model-Old_Islamic_Helmet.png',
     model: {
@@ -217,9 +210,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مجموعة الأسلحة الإسلامية • علقمي',
       en: 'Alqami Islamic Arms & Armour Collection',
     },
-    price: 165,
-    rating: 4.8,
-    reviewsCount: 28,
     itemCode: 'SWD-OTT-16',
     image: '/images/model-Zulfiqar_Sword.png',
     model: {
@@ -279,9 +269,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'المتحف البريطاني (BM 92687) • مستودع علقمي',
       en: 'British Museum • Alqami Spatial Vault',
     },
-    price: 180,
-    rating: 4.8,
-    reviewsCount: 42,
     itemCode: 'MAP-BAB-001',
     image: '/images/model-babylonian_map_of_the_world_tablet_-_imago_mundi.png',
     model: {
@@ -340,9 +327,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مجموعة المسماريات البابلية • علقمي',
       en: 'Mesopotamian Collection • Alqami',
     },
-    price: 95,
-    rating: 4.6,
-    reviewsCount: 17,
     itemCode: 'TAB-BAB-S264',
     image: '/images/model-old-babylonian_cuneiform_tablet_s264.png',
     model: {
@@ -401,9 +385,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مجموعة الأواني الإسلامية • علقمي',
       en: 'Islamic Metalwork Collection • Alqami',
     },
-    price: 110,
-    rating: 4.7,
-    reviewsCount: 23,
     itemCode: 'BWL-SAQ-18',
     image: '/images/model-saqakhane_bowl.png',
     model: {
@@ -462,9 +443,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'متحف الفن الإسلامي • مستودع علقمي',
       en: 'Museum of Islamic Art Collection',
     },
-    price: 310,
-    rating: 4.9,
-    reviewsCount: 31,
     itemCode: 'MHR-KAS-14',
     image: '/images/model-prayer_niche_mihrab.png',
     model: {
@@ -523,9 +501,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مستودع علقمي للمنحوتات الأثرية',
       en: 'Alqami Antiquities Vault',
     },
-    price: 260,
-    rating: 4.8,
-    reviewsCount: 39,
     itemCode: 'STL-HAM-1750',
     image: '/images/model-stela_of_hammurabi_replica.png',
     model: {
@@ -584,9 +559,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'المتحف الوطني للفنون الخزفية • علقمي',
       en: 'National Ceramic Arts Museum • Alqami',
     },
-    price: 75,
-    rating: 4.5,
-    reviewsCount: 16,
     itemCode: 'BWL-NIS-10',
     image: '/images/model-bowl.png',
     model: {
@@ -645,9 +617,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مكتبة مجلس الشورى (4662) • علقمي',
       en: 'Majlis Library Tehran (4662) • Alqami',
     },
-    price: 135,
-    rating: 4.7,
-    reviewsCount: 14,
     itemCode: 'MSS-QAB-1650',
     image: '/images/model-model.png',
     model: {
@@ -706,9 +675,6 @@ export const ALQAMI_ARTIFACTS: AlqamiArtifact[] = [
       ar: 'مستودع علقمي الرقمي السحابي',
       en: 'Alqami Cloud Repository',
     },
-    price: 195,
-    rating: 4.9,
-    reviewsCount: 48,
     itemCode: 'MSH-ALQ-3D',
     image: '/images/model-meshy-model.png',
     model: {

@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "لوح مسماري بابلي قديم (S264)",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "لوح عقود ومعاملات اقتصادية من طين الرافدين (1900 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Old Babylonian Cuneiform Tablet",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Administrative Cuneiform Tablet, c. 1900 BCE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "تراث بلاد الرافدين",
+            "@language": "ar"
+          },
+          {
+            "@value": "History",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "c. 1900–1600 BCE",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "لوح طيني مفخور بحجم قبضة اليد يوثق حسابات القمح والزيوت مع أختام أسطوانية ضاغطة على الجوانب، مكتوب بالخط المسماري البابلي القديم الواضح.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Hand-sized baked clay administrative tablet recording grain and oil disbursements, impressed with royal cylinder seal rolling.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "لوح مسماري بابلي قديم (S264)",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "لوح عقود ومعاملات اقتصادية من طين الرافدين (1900 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Old Babylonian Cuneiform Tablet",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Administrative Cuneiform Tablet, c. 1900 BCE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "كاتب سومري بابلي رسمي",
+          "@language": "ar"
+        },
+        {
+          "@value": "Royal Scribe of Larsa",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "8.5 × 5.2 × 2.0 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-TAB-005",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "طين نيلي مفخور، حفر بقلم القصب المسماري",
+              "@language": "ar"
+            },
+            {
+              "@value": "Baked clay, reed stylus cuneiform script",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "كامل الأحرف والرموز بحالة ممتازة دون كسور",
+              "@language": "ar"
+            },
+            {
+              "@value": "Intact inscriptions with pristine seal rollings",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/old-babylonian-cuneiform-tablet#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "TAB-BAB-S264"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مجموعة المسماريات البابلية • علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Mesopotamian Collection • Alqami",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/old-babylonian_cuneiform_tablet_s264.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

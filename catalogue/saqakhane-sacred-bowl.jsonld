@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "طاسة سقاخانة برونزية أثرية",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "وعاء ماء تراثي منقوش بآيات الشفاء والأدعية (القرن 18 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Saqakhane Sacred Bronze Bowl",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Engraved Bronze Water Vessel, 18th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "المعادن الإسلامية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Artifact",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "18th Century",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "وعاء برونزي مقدس من أروقة السقاخانة، محفور من الداخل والخارج بآيات الشفاء وسور قرآنية بخط الثلث المتقن، مع مركز يحمل قبة شمسية بارزة.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Historic bronze drinking bowl used at public water fountains (Saqakhane), engraved inside and out with Quranic healing verses and central boss.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "طاسة سقاخانة برونزية أثرية",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "وعاء ماء تراثي منقوش بآيات الشفاء والأدعية (القرن 18 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Saqakhane Sacred Bronze Bowl",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Engraved Bronze Water Vessel, 18th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "حرفيو النحاس والبرونز في أصفهان",
+          "@language": "ar"
+        },
+        {
+          "@value": "Isfahan Bronze Masters",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "القطر: 18.5 سم • العمق: 6.2 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-BWL-006",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "برونز مسبوك ومطروق يدوياً، حفر إزميل دقيق",
+              "@language": "ar"
+            },
+            {
+              "@value": "Hand-chiseled cast bronze with natural patina",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "برونز أصيل مع طبقة زنجار خضراء تاريخية طبيعية",
+              "@language": "ar"
+            },
+            {
+              "@value": "Pristine historic bronze patina and crisp inscriptions",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/saqakhane-sacred-bowl#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "BWL-SAQ-18"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مجموعة الأواني الإسلامية • علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Islamic Metalwork Collection • Alqami",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/saqakhane_bowl.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}
