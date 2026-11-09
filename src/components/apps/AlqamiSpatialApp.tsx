@@ -11,7 +11,6 @@ import {
   X,
   ShoppingBag,
   ArrowRight,
-  Star,
   Check,
   Scan,
   Sparkles,
@@ -23,13 +22,17 @@ import {
   Copy,
 } from 'lucide-react';
 import QRCode from 'qrcode';
-import { ALQAMI_ARTIFACTS, AlqamiArtifact } from '../../data/alqamiArtifacts';
+import { AlqamiArtifact } from '../../data/alqamiArtifacts';
 import { AlqamiArtifact3DCanvas } from '../three/AlqamiArtifact3DCanvas';
 import { AlqamiDuoFoldTransition } from '../effects/AlqamiDuoFoldTransition';
 import { AlqamiDuoFoldShowcase } from '../effects/AlqamiDuoFoldShowcase';
 import { AlqamiARKitObjectScanner } from './AlqamiARKitObjectScanner';
 import { spatialSound } from '../../utils/spatialSound';
 import { assetUrl } from '../../utils/assetUrl';
+import { MoonRecordPanel } from '../moon/MoonRecordCard';
+import { MoonRecordSheet, MoonShelf } from '../moon/MoonCatalogue';
+import { useAlqamiArtifacts } from '../../moon/moonObjects';
+import { useMoonRecord } from '../../moon/useMoon';
 
 interface BentoHotspot {
   id: string;
@@ -131,13 +134,15 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
   activeNav = 'grid',
   onNavChange,
 }) => {
+  // Built-in objects plus every object catalogued in Moon with a 3D model.
+  const artifacts = useAlqamiArtifacts();
   // Start directly on 'catalog' (Image 1) when entering the app
   const [view, setView] = useState<'catalog' | 'detail' | 'room-bento' | 'duo-fold'>('catalog');
   const [isLeavingView, setIsLeavingView] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
   // Banner 3D artifact: randomizes automatically periodically and on load
   const [bannerArtifactIndex, setBannerArtifactIndex] = useState(() =>
-    Math.floor(Math.random() * ALQAMI_ARTIFACTS.length)
+    Math.floor(Math.random() * artifacts.length)
   );
   const [showLive3D, setShowLive3D] = useState(false);
   const [activeCard3D, setActiveCard3D] = useState<Record<string, boolean>>({});
@@ -199,7 +204,10 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
   const popOutTimerRef = useRef<number | null>(null);
   const arDissolveTimerRef = useRef<number | null>(null);
 
-  const currentArtifact = ALQAMI_ARTIFACTS[activeArtifactIndex] || ALQAMI_ARTIFACTS[0];
+  const currentArtifact = artifacts[activeArtifactIndex] || artifacts[0];
+  // Once an object is catalogued in Moon, Moon is the source of its details.
+  const currentMoonRecord = useMoonRecord(currentArtifact.moonRecordId, lang);
+  const [moonSheetId, setMoonSheetId] = useState<string | null>(null);
 
   // Auto-generate QR code data URL pointing to the authentic AR Quick Look mode
   useEffect(() => {
@@ -275,7 +283,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
     const handleInspectEvent = (e: Event) => {
       const ce = e as CustomEvent<{ artifactId?: string }>;
       if (ce.detail?.artifactId) {
-        const found = ALQAMI_ARTIFACTS.find((a) => a.id === ce.detail.artifactId);
+        const found = artifacts.find((a) => a.id === ce.detail.artifactId);
         if (found) {
           openPopOut3D(found);
         }
@@ -320,7 +328,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
     spatialSound.playPinchTap();
     setFoldDirection(1);
     setIsFoldTransitionActive(true);
-    setActiveArtifactIndex((prev) => (prev + 1) % ALQAMI_ARTIFACTS.length);
+    setActiveArtifactIndex((prev) => (prev + 1) % artifacts.length);
   };
 
   const handlePrevArtifact = (e?: React.MouseEvent) => {
@@ -328,15 +336,15 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
     spatialSound.playPinchTap();
     setFoldDirection(-1);
     setIsFoldTransitionActive(true);
-    setActiveArtifactIndex((prev) => (prev - 1 + ALQAMI_ARTIFACTS.length) % ALQAMI_ARTIFACTS.length);
+    setActiveArtifactIndex((prev) => (prev - 1 + artifacts.length) % artifacts.length);
   };
 
   // Auto-randomize the hero banner 3D artifact periodically
   useEffect(() => {
     const timer = setInterval(() => {
       setBannerArtifactIndex((prev) => {
-        let next = Math.floor(Math.random() * ALQAMI_ARTIFACTS.length);
-        if (next === prev) next = (prev + 1) % ALQAMI_ARTIFACTS.length;
+        let next = Math.floor(Math.random() * artifacts.length);
+        if (next === prev) next = (prev + 1) % artifacts.length;
         return next;
       });
     }, 7000);
@@ -347,8 +355,8 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
     e?.stopPropagation();
     spatialSound.playPinchTap();
     setBannerArtifactIndex((prev) => {
-      let next = Math.floor(Math.random() * ALQAMI_ARTIFACTS.length);
-      if (next === prev) next = (prev + 1) % ALQAMI_ARTIFACTS.length;
+      let next = Math.floor(Math.random() * artifacts.length);
+      if (next === prev) next = (prev + 1) % artifacts.length;
       return next;
     });
   };
@@ -402,7 +410,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
   ];
 
   const q = searchQuery.trim().toLowerCase();
-  const filteredArtifacts = ALQAMI_ARTIFACTS.filter((a) => {
+  const filteredArtifacts = artifacts.filter((a) => {
     const matchesCat =
       activeCategory === 'All'
         ? true
@@ -483,11 +491,13 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
         onClose={() => setIsScanModalOpen(false)}
         onDeployInSpace={(art) => triggerARPreviewInSpace(art)}
         onOpenDetail={(art) => {
-          const idx = ALQAMI_ARTIFACTS.findIndex((a) => a.id === art.id);
+          const idx = artifacts.findIndex((a) => a.id === art.id);
           if (idx >= 0) setActiveArtifactIndex(idx);
           transitionToView('detail');
         }}
       />
+
+      {moonSheetId && <MoonRecordSheet recordId={moonSheetId} lang={lang} onClose={() => setMoonSheetId(null)} />}
 
       {/* 3D Volume Pop-Out Overlay in Front of Dimmed Window (Exact match to large-thumbnail20230914-22636-1i3w6cl.mp4) */}
       {isPopOut3D && (
@@ -614,8 +624,8 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                 title={isAr ? 'انقر لتغيير المعروض ثلاثي الأبعاد عشوائياً' : 'Click to cycle random authentic artifact'}
               >
                 <AlqamiArtifact3DCanvas
-                  key={ALQAMI_ARTIFACTS[bannerArtifactIndex]?.id || 'banner-obj'}
-                  glbUrl={ALQAMI_ARTIFACTS[bannerArtifactIndex]?.model?.glb || '/models/Old_Islamic_Helmet.glb'}
+                  key={artifacts[bannerArtifactIndex]?.id || 'banner-obj'}
+                  glbUrl={artifacts[bannerArtifactIndex]?.model?.glb || '/models/Old_Islamic_Helmet.glb'}
                   mode="banner"
                   autoRotate={true}
                   className="w-full h-full relative z-10"
@@ -720,7 +730,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                 <button
                   onClick={() => {
                     spatialSound.playPinchTap();
-                    openPopOut3D(ALQAMI_ARTIFACTS[bannerArtifactIndex] || currentArtifact);
+                    openPopOut3D(artifacts[bannerArtifactIndex] || currentArtifact);
                   }}
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-sm border bg-white/20 hover:bg-white/35 border-white/25 text-white active:scale-95"
                   aria-label={isAr ? 'فحص ثلاثي الأبعاد مكاني' : 'Inspect 3D spatial volume'}
@@ -756,7 +766,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
           {/* All Authentic Artifacts Grid with Elevation & Specular Hover Glow (Matching Image 2) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {displayedArtifacts.map((prod, productIndex) => {
-              const globalIdx = ALQAMI_ARTIFACTS.findIndex((a) => a.id === prod.id);
+              const globalIdx = artifacts.findIndex((a) => a.id === prod.id);
               const isFav = !!liked[prod.id];
               const isCardLive = showLive3D || !!activeCard3D[prod.id];
 
@@ -868,6 +878,17 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
             )}
           </div>
 
+          {!isFavoritesMode && (
+            <MoonShelf
+              query={searchQuery}
+              lang={lang}
+              onOpen={(id) => {
+                spatialSound.playPinchTap();
+                setMoonSheetId(id);
+              }}
+            />
+          )}
+
           {/* ─────────────────────────────────────────────────────────────
               ROOM BENTO SHOWCASE: REAL INTERACTIVE 3D MODELS (NO PICS / NO TEXT)
              ───────────────────────────────────────────────────────────── */}
@@ -878,7 +899,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
               <div className="col-span-12 md:col-span-7 h-[360px] rounded-[26px] bg-[#CBC9C5]/20 hover:bg-[#CBC9C5]/30 border border-white/20 relative overflow-visible flex flex-col justify-between shadow-xl transition-all">
                 <AlqamiArtifact3DCanvas
                   key="bento-3d-1"
-                  glbUrl={ALQAMI_ARTIFACTS[3]?.model?.glb || '/models/babylonian_map_of_the_world_tablet_-_imago_mundi.glb'}
+                  glbUrl={artifacts[3]?.model?.glb || '/models/babylonian_map_of_the_world_tablet_-_imago_mundi.glb'}
                   mode="embedded"
                   autoRotate={true}
                   lang={lang}
@@ -886,10 +907,9 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                     {
                       id: 'bento-fp1',
                       localPos: [-0.08, 0.12, 0.16],
-                      title: { ar: ALQAMI_ARTIFACTS[3]?.title.ar, en: ALQAMI_ARTIFACTS[3]?.title.en },
-                      desc: { ar: ALQAMI_ARTIFACTS[3]?.details.dimensions, en: ALQAMI_ARTIFACTS[3]?.details.material.en },
-                      price: ALQAMI_ARTIFACTS[3]?.price || 119,
-                      onInspect: () => openPopOut3D(ALQAMI_ARTIFACTS[3]),
+                      title: { ar: artifacts[3]?.title.ar, en: artifacts[3]?.title.en },
+                      desc: { ar: artifacts[3]?.details.dimensions, en: artifacts[3]?.details.material.en },
+                      onInspect: () => openPopOut3D(artifacts[3]),
                     },
                     {
                       id: 'bento-fp2',
@@ -897,7 +917,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                       title: { ar: 'نقوش مسمارية تراثية', en: 'Cuneiform Inscriptions' },
                       desc: { ar: 'أقدم خريطة جغرافية كلاسيكية', en: 'Ancient cartographic world map' },
                       badge: { ar: 'نادر جداً · Rare', en: 'Rare Artifact' },
-                      onInspect: () => openPopOut3D(ALQAMI_ARTIFACTS[3]),
+                      onInspect: () => openPopOut3D(artifacts[3]),
                     },
                   ]}
                 />
@@ -909,7 +929,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                 <div className="h-[172px] rounded-[24px] bg-[#CBC9C5]/20 hover:bg-[#CBC9C5]/30 border border-white/20 relative overflow-visible shadow-lg transition-all">
                   <AlqamiArtifact3DCanvas
                     key="bento-3d-2"
-                    glbUrl={ALQAMI_ARTIFACTS[1]?.model?.glb || '/models/Old_Islamic_Helmet.glb'}
+                    glbUrl={artifacts[1]?.model?.glb || '/models/Old_Islamic_Helmet.glb'}
                     mode="embedded"
                     autoRotate={true}
                     lang={lang}
@@ -917,10 +937,9 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                       {
                         id: 'bento-fp3',
                         localPos: [0.0, 0.14, 0.28],
-                        title: { ar: ALQAMI_ARTIFACTS[1]?.title.ar, en: ALQAMI_ARTIFACTS[1]?.title.en },
-                        desc: { ar: ALQAMI_ARTIFACTS[1]?.details.dimensions, en: ALQAMI_ARTIFACTS[1]?.details.material.en },
-                        price: ALQAMI_ARTIFACTS[1]?.price || 240,
-                        onInspect: () => openPopOut3D(ALQAMI_ARTIFACTS[1]),
+                        title: { ar: artifacts[1]?.title.ar, en: artifacts[1]?.title.en },
+                        desc: { ar: artifacts[1]?.details.dimensions, en: artifacts[1]?.details.material.en },
+                        onInspect: () => openPopOut3D(artifacts[1]),
                       },
                     ]}
                   />
@@ -932,7 +951,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                   <div className="h-[172px] rounded-[24px] bg-[#CBC9C5]/20 hover:bg-[#CBC9C5]/30 border border-white/20 relative overflow-visible shadow-lg transition-all">
                     <AlqamiArtifact3DCanvas
                       key="bento-3d-3"
-                      glbUrl={ALQAMI_ARTIFACTS[2]?.model?.glb || '/models/Zulfiqar_Sword.glb'}
+                      glbUrl={artifacts[2]?.model?.glb || '/models/Zulfiqar_Sword.glb'}
                       mode="embedded"
                       autoRotate={true}
                       lang={lang}
@@ -940,10 +959,9 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                         {
                           id: 'bento-fp4',
                           localPos: [0.12, 0.03, 0.10],
-                          title: { ar: ALQAMI_ARTIFACTS[2]?.title.ar, en: ALQAMI_ARTIFACTS[2]?.title.en },
-                          desc: { ar: ALQAMI_ARTIFACTS[2]?.details.material.ar, en: ALQAMI_ARTIFACTS[2]?.details.material.en },
-                          price: ALQAMI_ARTIFACTS[2]?.price || 185,
-                          onInspect: () => openPopOut3D(ALQAMI_ARTIFACTS[2]),
+                          title: { ar: artifacts[2]?.title.ar, en: artifacts[2]?.title.en },
+                          desc: { ar: artifacts[2]?.details.material.ar, en: artifacts[2]?.details.material.en },
+                          onInspect: () => openPopOut3D(artifacts[2]),
                         },
                       ]}
                     />
@@ -953,7 +971,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                   <div className="h-[172px] rounded-[24px] bg-[#CBC9C5]/20 hover:bg-[#CBC9C5]/30 border border-white/20 relative overflow-visible shadow-lg transition-all">
                     <AlqamiArtifact3DCanvas
                       key="bento-3d-4"
-                      glbUrl={ALQAMI_ARTIFACTS[8]?.model?.glb || '/models/bowl.glb'}
+                      glbUrl={artifacts[8]?.model?.glb || '/models/bowl.glb'}
                       mode="embedded"
                       autoRotate={true}
                       lang={lang}
@@ -961,10 +979,9 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                         {
                           id: 'bento-fp5',
                           localPos: [0.0, 0.10, 0.18],
-                          title: { ar: ALQAMI_ARTIFACTS[8]?.title.ar, en: ALQAMI_ARTIFACTS[8]?.title.en },
-                          desc: { ar: ALQAMI_ARTIFACTS[8]?.details.material.ar, en: ALQAMI_ARTIFACTS[8]?.details.material.en },
-                          price: ALQAMI_ARTIFACTS[8]?.price || 95,
-                          onInspect: () => openPopOut3D(ALQAMI_ARTIFACTS[8]),
+                          title: { ar: artifacts[8]?.title.ar, en: artifacts[8]?.title.en },
+                          desc: { ar: artifacts[8]?.details.material.ar, en: artifacts[8]?.details.material.en },
+                          onInspect: () => openPopOut3D(artifacts[8]),
                         },
                       ]}
                     />
@@ -1145,26 +1162,18 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
               </div>
             </div>
 
-            {/* Product Title & Reviews */}
-            <div className="space-y-1.5 my-3">
-              <div className="flex items-center justify-between">
-                <h1 className="text-[28px] font-bold leading-tight tracking-tight">
-                  {isAr ? currentArtifact.title.ar : currentArtifact.title.en}
-                </h1>
-                <div className="flex items-center gap-1 text-[13px] text-white/80 font-mono">
-                  <span>{currentArtifact.reviewsCount} {isAr ? 'تقييم' : 'reviews'}</span>
-                  <div className="flex text-amber-400">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-3.5 h-3.5 ${
-                          i < Math.floor(currentArtifact.rating) ? 'fill-amber-400 text-amber-400' : 'text-white/20'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
+            {currentMoonRecord ? (
+              /* Catalogued in Moon: everything below comes from the live Moon record. */
+              <div className="my-4">
+                <MoonRecordPanel load={currentMoonRecord} lang={lang} />
               </div>
+            ) : (
+            <>
+            {/* Title */}
+            <div className="space-y-1.5 my-3">
+              <h1 className="text-[28px] font-bold leading-tight tracking-tight">
+                {isAr ? currentArtifact.title.ar : currentArtifact.title.en}
+              </h1>
               <p className="text-[13px] text-white/70">
                 {isAr ? (currentArtifact.subtitle?.ar || currentArtifact.period.ar) : (currentArtifact.subtitle?.en || currentArtifact.period.en)}
               </p>
@@ -1223,38 +1232,15 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
                 )}
               </div>
 
-              {/* 3. التسليم و التعليمات */}
-              <div className="py-2.5">
-                <button
-                  onClick={() => toggleAccordion('delivery')}
-                  className="w-full flex items-center justify-between text-[13.5px] font-semibold text-white/90 hover:text-white cursor-pointer"
-                >
-                  <span>التسليم و التعليمات (Delivery & Packaging)</span>
-                  <Plus className={`w-4 h-4 transition-transform ${openAccordion === 'delivery' ? 'rotate-45' : ''}`} />
-                </button>
-                {openAccordion === 'delivery' && (
-                  <div className="pt-2 text-[12px] text-white/70 font-light leading-relaxed">
-                    <p>{currentArtifact.details.delivery?.ar || 'شحن آمن في حافظة حرارية مضادة للصدمات.'}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* 4. تعليمات التجميع */}
-              <div className="py-2.5">
-                <button
-                  onClick={() => toggleAccordion('assembly')}
-                  className="w-full flex items-center justify-between text-[13.5px] font-semibold text-white/90 hover:text-white cursor-pointer"
-                >
-                  <span>تعليمات التجميع (Assembly & Mounting)</span>
-                  <Plus className={`w-4 h-4 transition-transform ${openAccordion === 'assembly' ? 'rotate-45' : ''}`} />
-                </button>
-                {openAccordion === 'assembly' && (
-                  <div className="pt-2 text-[12px] text-white/70 font-light leading-relaxed">
-                    <p>{currentArtifact.details.assembly?.ar || 'لا تتطلب تجميع؛ جاهزة للعرض أو المعاينة المباشرة.'}</p>
-                  </div>
-                )}
-              </div>
             </div>
+
+            <p className="text-[11.5px] text-white/50 leading-relaxed">
+              {isAr
+                ? 'هذه القطعة غير مفهرسة في مون بعد؛ تُعرض بياناتها المحلية إلى أن تُفهرس.'
+                : 'This object is not catalogued in Moon yet; its local details show until it is.'}
+            </p>
+            </>
+            )}
 
             {/* Museum Heritage 3D Room Exploration Action (Image 3 Stepper & Cart removed) */}
             <div className="flex items-center justify-end gap-3 pt-3">
@@ -1291,7 +1277,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {ALQAMI_ARTIFACTS.slice(0, 4).map((art, idx) => (
+            {artifacts.slice(0, 4).map((art, idx) => (
               <div
                 key={art.id}
                 onClick={() => {
@@ -1303,7 +1289,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono text-cyan-300">Hotspot #{idx + 1}</span>
-                  <span className="text-xs font-bold text-amber-300">${art.price}</span>
+
                 </div>
                 <div>
                   <h3 className="font-bold text-sm">{art.title.ar}</h3>
@@ -1335,7 +1321,7 @@ export const AlqamiSpatialApp: React.FC<AlqamiSpatialAppProps> = ({
             lang={lang}
             onClose={() => transitionToView('catalog')}
             onSelectArtifact={(art) => {
-              const idx = ALQAMI_ARTIFACTS.findIndex((a) => a.id === art.id);
+              const idx = artifacts.findIndex((a) => a.id === art.id);
               if (idx >= 0) setActiveArtifactIndex(idx);
               transitionToView('detail');
             }}

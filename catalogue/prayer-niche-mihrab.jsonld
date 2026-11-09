@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "محراب الصلاة الإسلامي المقرنص",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "محراب مزخرف بالفسيفساء الخزفية والخط الثلث (القرن 14 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Prayer Niche Mihrab",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Glazed Ceramic Architectural Mihrab, 14th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "العمارة والفنون الإسلامية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Islamic Art",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "14th Century",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "تحفة معمارية إسلامية من بلاط الفسيفساء الخزفي المزجج بلوني الفيروزي واللازوردي مع آية الكرسي بخط الثلث المورق حول إطار القوس المعقود المقرنص.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Architectural prayer niche adorned with turquoise and cobalt glazed mosaic tiles, framed with Quranic Ayatul Kursi in floriated Thuluth calligraphy.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "محراب الصلاة الإسلامي المقرنص",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "محراب مزخرف بالفسيفساء الخزفية والخط الثلث (القرن 14 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Prayer Niche Mihrab",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Glazed Ceramic Architectural Mihrab, 14th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "أساتذة الخزف في كاشان",
+          "@language": "ar"
+        },
+        {
+          "@value": "Kashan Master Ceramists",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "الارتفاع: 110 سم • العرض: 65 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-MHR-007",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "خزف مزجج بريق معدني، أصباغ كوبالت وفيروز، جبس تراثي",
+              "@language": "ar"
+            },
+            {
+              "@value": "Luster-glazed ceramic, cobalt and turquoise oxides",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "البريق المعدني والزخارف النباتية الهندسية بحالة ممتازة",
+              "@language": "ar"
+            },
+            {
+              "@value": "Luster glaze and arabesque flora in superb preservation",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/prayer-niche-mihrab#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "MHR-KAS-14"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "متحف الفن الإسلامي • مستودع علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Museum of Islamic Art Collection",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/prayer_niche_mihrab.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

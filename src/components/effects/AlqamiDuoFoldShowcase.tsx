@@ -61,7 +61,7 @@ export const AlqamiDuoFoldShowcase: React.FC<AlqamiDuoFoldShowcaseProps> = ({
         {/* Left Bottom Badges */}
         <div className="flex items-center justify-between z-10 text-[11px] text-white/70">
           <span className="font-mono text-cyan-300">{artifact.id}</span>
-          <span className="text-amber-300 font-bold">${artifact.price}</span>
+
         </div>
       </div>
 

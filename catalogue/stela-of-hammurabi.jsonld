@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مسلة شريعة حمورابي البابلية",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "أقدم شريعة قانونية متكاملة مكتوبة في التاريخ (1750 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Stela of Hammurabi Code",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Old Babylonian Law Code Replica, c. 1750 BCE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "تراث بلاد الرافدين",
+            "@language": "ar"
+          },
+          {
+            "@value": "History",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "c. 1750 BCE",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "منحوتة تاريخية شامخة من حجر الديوريت الأسود، يظهر في أعلاها الملك حمورابي وهو يتلقى شريعة العدل من إله الشمس شمش، وتحتها 282 مادة قانونية بليغة.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Monumental black diorite stela depicting King Hammurabi receiving laws from Shamash the sun god, inscribed with 282 legal edicts in cuneiform.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مسلة شريعة حمورابي البابلية",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "أقدم شريعة قانونية متكاملة مكتوبة في التاريخ (1750 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Stela of Hammurabi Code",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Old Babylonian Law Code Replica, c. 1750 BCE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "نحاتو القصر الملكي البابلي في عهد الملك حمورابي",
+          "@language": "ar"
+        },
+        {
+          "@value": "Royal Sculptors of King Hammurabi",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "الارتفاع: 75 سم • القاعدة: 25 × 20 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-STL-008",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "ديوريت أسود مصقول، نقش مسماري أكدي غائر",
+              "@language": "ar"
+            },
+            {
+              "@value": "Polished black basalt/diorite, incised Akkadian cuneiform",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "نسخة متحفية ملموسة بنقوش واضحة مطابقة للأصلية",
+              "@language": "ar"
+            },
+            {
+              "@value": "Museum-grade replica with crisp relief sculpture",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/stela-of-hammurabi#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "STL-HAM-1750"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مستودع علقمي للمنحوتات الأثرية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Alqami Antiquities Vault",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/stela_of_hammurabi_replica.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

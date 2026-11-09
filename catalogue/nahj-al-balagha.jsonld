@@ -1,0 +1,250 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#work",
+      "@type": [
+        "bf:Work",
+        "bf:Text"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مخطوط نهج البلاغة",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "الشيخ الرضي - الشريف الرضي (1022 هـ)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Nahj al-Balagha Manuscript",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Al-Sharif al-Radi (1022 AH / 1613 CE)",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/txt",
+        "rdfs:label": "text"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "المخطوطات والنوادر",
+            "@language": "ar"
+          },
+          {
+            "@value": "Manuscripts",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "1022 AH / 1613 CE",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "نسخة خطية من مخطوط نهج البلاغة، تُنسب إلى الشريف الرضي الذي جمعها وشرحها، تتميز هذه النسخة بخط جميل وواضح، وتحتوي على زخارف وهامش مذهب، وهي من أقدم النسخ المحفوظة التي تحمل هذا النص القيّم.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Illuminated manuscript of Nahj al-Balagha compiled by Al-Sharif al-Radi, transcribed in 1022 AH with ornate gold borders, intricate arabesque frontispiece, and red ink chapter markings.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#instance",
+      "@type": [
+        "bf:Instance",
+        "bf:Manuscript"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مخطوط نهج البلاغة",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "الشيخ الرضي - الشريف الرضي (1022 هـ)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Nahj al-Balagha Manuscript",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Al-Sharif al-Radi (1022 AH / 1613 CE)",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "الشريف الرضي (ت 406 هـ) • الناسخ: شمس الدين علي الشيرازي",
+          "@language": "ar"
+        },
+        {
+          "@value": "Al-Sharif al-Radi • Scribe: Shams al-Din Ali al-Shirazi",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nc",
+        "rdfs:label": "volume"
+      },
+      "bf:dimensions": "28.5 × 18.2 سم (477 ورقة)",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-MSS-006",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "ورق مجدول ومذهب، حبر أسود، مداد أحمر، خط النسخ الأصيل",
+              "@language": "ar"
+            },
+            {
+              "@value": "Gold-ruled paper, carbon ink, cinnabar rubrication, Naskh script",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "نادرة ومحفوظة بعناية فائقة مع تجليد إسلامي أصيل ومحكم",
+              "@language": "ar"
+            },
+            {
+              "@value": "Extremely rare, well-preserved in historic Islamic binding",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "binding",
+          "rdfs:label": [
+            {
+              "@value": "تجليد جلدي إسلامي أصيل مزخرف بنقوش هندسية مذهبة ومحكمة",
+              "@language": "ar"
+            },
+            {
+              "@value": "Authentic Islamic leather binding with gilded geometric tooling",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "decoration",
+          "rdfs:label": [
+            {
+              "@value": "النسخة مجدولة بالذهب، وأولها لوحة فنية مذهبة بديعة وعناوين بالمداد الأحمر",
+              "@language": "ar"
+            },
+            {
+              "@value": "Gold-illuminated borders, gilded frontispiece, and rubricated chapter headers",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "ownership marks",
+          "rdfs:label": [
+            {
+              "@value": "تحتوي على قيود تملكية وأختام مكتبة العتبة الرضوية المقدسة برقم 1861",
+              "@language": "ar"
+            },
+            {
+              "@value": "Bears historic ownership seals and endowment inscription no. 1861",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/nahj-al-balagha#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "1022 هـ / هـ"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مكتبة العتبة الرضوية المقدسة (1861) • مستودع علقمي الرقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Central Library of Astan Quds Razavi • Alqami Repository",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/nahj_al_balagha.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

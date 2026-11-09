@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "وعاء خزفي إسلامي أثري",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "خزف نيسابوري مزجج بحروف كوفية مذهبة (القرن 10 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Ancient Ceramic Slipware Bowl",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Nishapur Calligraphic Ceramic Bowl, 10th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "الخزف والفنون الإسلامية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Islamic Art",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "10th Century",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "وعاء خزفي ناصع البياض مزجج بطلاء رائق، محلى بحافة خط كوفي أندلسي يحمل حكم وأمثال في الكرم والأدب باللون البني المحروق.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Elegantly proportioned white earthenware bowl painted in dark slip with floriated Kufic aphorism on generosity and good manners.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "وعاء خزفي إسلامي أثري",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "خزف نيسابوري مزجج بحروف كوفية مذهبة (القرن 10 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Ancient Ceramic Slipware Bowl",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Nishapur Calligraphic Ceramic Bowl, 10th Century",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "خزافو نيسابور وسمرقند",
+          "@language": "ar"
+        },
+        {
+          "@value": "Nishapur Slipware Potters",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "القطر: 21.4 سم • الارتفاع: 7.0 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-BWL-009",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "طين خزفي أبيض، طلاء زجاجي رصاصي شفاف",
+              "@language": "ar"
+            },
+            {
+              "@value": "White earthenware, underglaze slip, clear lead glaze",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "سليم وخالٍ من الشروخ مع رنين نقي للقطعة",
+              "@language": "ar"
+            },
+            {
+              "@value": "Intact with fine micro-crazing and resonant ring",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/ancient-ceramic-bowl#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "BWL-NIS-10"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "المتحف الوطني للفنون الخزفية • علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "National Ceramic Arts Museum • Alqami",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/bowl.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "خريطة بابل للعالم (إيماجو موندي)",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "أقدم خريطة جغرافية وفلكية في تاريخ البشرية (القرن 6 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Babylonian Map of the World",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Earliest known world map tablet, 6th century BCE.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "تراث بلاد الرافدين",
+            "@language": "ar"
+          },
+          {
+            "@value": "History",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "6th century BCE",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "لوح طيني تاريخي فريد يمثل خريطة بابل للعالم القديم، حيث تظهر بابل كمستطيل في المركز يمر به نهر الفرات، وتحيط بها الدائرة المائية المحيطية المسماة \"نهر المرارة\" وجزر أسطورية مثلثة.",
+            "@language": "ar"
+          },
+          {
+            "@value": "The Imago Mundi clay tablet from ancient Mesopotamia. Depicts Babylon as the center of the world bisected by the Euphrates and encircled by the Bitter Ocean.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "خريطة بابل للعالم (إيماجو موندي)",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "أقدم خريطة جغرافية وفلكية في تاريخ البشرية (القرن 6 ق.م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Babylonian Map of the World",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Earliest known world map tablet, 6th century BCE.",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "كاهن بابلي فلكي مجهول",
+          "@language": "ar"
+        },
+        {
+          "@value": "Babylonian Astronomer-Priest",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "12.2 × 8.2 × 2.4 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-MAP-001",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "طين بابلي مفخور طبيعي، خط مسماري محفور بدقة",
+              "@language": "ar"
+            },
+            {
+              "@value": "Baked alluvial clay, incised cuneiform inscription",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "سليمة جزئياً مع ثبات كامل للهيكل الطيني التاريخي",
+              "@language": "ar"
+            },
+            {
+              "@value": "Partially intact with stable clay substrate",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/babylonian-map-of-the-world#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "MAP-BAB-001"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "المتحف البريطاني (BM 92687) • مستودع علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "British Museum • Alqami Spatial Vault",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/babylonian_map_of_the_world_tablet_-_imago_mundi.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

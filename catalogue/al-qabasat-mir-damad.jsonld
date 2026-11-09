@@ -1,0 +1,208 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#work",
+      "@type": [
+        "bf:Work",
+        "bf:Text"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مخطوط القبسات — الميرداماد",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "تراث الحكمة والفلسفة الإسلامية المتعالية (1650 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Al-Qabasat Manuscript — Mir Damad",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Safavid Philosophical Codex, 1650 CE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/txt",
+        "rdfs:label": "text"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "المخطوطات والنوادر",
+            "@language": "ar"
+          },
+          {
+            "@value": "Manuscripts",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "1650 CE [1061 AH]",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "كتاب فلسفي كلامي للميرداماد يناقش حدوث العالم وقدمه ومسألة الدهر والزمان، النسخة مجدولة ومذهبة وغلافها جلد أحمر أصيل بنظام التعقيبات التاريخية.",
+            "@language": "ar"
+          },
+          {
+            "@value": "Theological and philosophical treatise by Mir Damad discussing cosmos origination, time and eternity (Dahr), in gold-ruled margins and red leather binding.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#instance",
+      "@type": [
+        "bf:Instance",
+        "bf:Manuscript"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مخطوط القبسات — الميرداماد",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "تراث الحكمة والفلسفة الإسلامية المتعالية (1650 م)",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Al-Qabasat Manuscript — Mir Damad",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Safavid Philosophical Codex, 1650 CE",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "الميرداماد محمد باقر الحسيني الإسترآبادي",
+          "@language": "ar"
+        },
+        {
+          "@value": "Mir Damad (d. 1040 AH)",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nc",
+        "rdfs:label": "volume"
+      },
+      "bf:dimensions": "26.0 × 17.5 سم (344 ورقة)",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-MS-003",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "ورق قطني، حبر أسود، خط النستعليق، جلد أحمر",
+              "@language": "ar"
+            },
+            {
+              "@value": "Cotton paper, black ink, Nastaliq script, red leather",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "نادرة وسليمة، مجدولة ومذهبة والغلاف جلد أحمر ممتاز",
+              "@language": "ar"
+            },
+            {
+              "@value": "Gold-ruled margins, intact original red leather binding",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/al-qabasat-mir-damad#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "MSS-QAB-1650"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مكتبة مجلس الشورى (4662) • علقمي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Majlis Library Tehran (4662) • Alqami",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/model.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}

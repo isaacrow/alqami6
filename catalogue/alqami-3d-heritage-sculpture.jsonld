@@ -1,0 +1,207 @@
+{
+  "@context": {
+    "bf": "http://id.loc.gov/ontologies/bibframe/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#work",
+      "@type": [
+        "bf:Work",
+        "bf:Object"
+      ],
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مجسم تحفة علقمي التراثي",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "منحوتة هندسية ثلاثية الأبعاد تمثل الهوية الحضارية والمتحفية",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Alqami 3D Heritage Sculpture",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Spatial 3D Cultural Geometry Monolith",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:content": {
+        "@id": "http://id.loc.gov/vocabulary/contentTypes/tdf",
+        "rdfs:label": "three-dimensional form"
+      },
+      "bf:genreForm": {
+        "@type": "bf:GenreForm",
+        "rdfs:label": [
+          {
+            "@value": "الهوية الثقافية",
+            "@language": "ar"
+          },
+          {
+            "@value": "Culture",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:originDate": "Contemporary Spatial Heritage",
+      "bf:summary": {
+        "@type": "bf:Summary",
+        "rdfs:label": [
+          {
+            "@value": "مجسم فراغي ثلاثي الأبعاد مصمم بأعلى دقة PBR ليجسد تناغم الفنون الإسلامية والزخارف الهندسية المعقدة في فضاء الواقع المعزز المكاني.",
+            "@language": "ar"
+          },
+          {
+            "@value": "A high-fidelity spatial 3D artifact celebrating Islamic geometric harmony, designed with photorealistic PBR textures for visionOS augmented reality.",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:hasInstance": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#instance"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#instance",
+      "@type": [
+        "bf:Instance"
+      ],
+      "bf:instanceOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#work"
+      },
+      "bf:title": [
+        {
+          "@type": "bf:Title",
+          "bf:mainTitle": {
+            "@value": "مجسم تحفة علقمي التراثي",
+            "@language": "ar"
+          },
+          "bf:subtitle": {
+            "@value": "منحوتة هندسية ثلاثية الأبعاد تمثل الهوية الحضارية والمتحفية",
+            "@language": "ar"
+          }
+        },
+        {
+          "@type": "bf:ParallelTitle",
+          "bf:mainTitle": {
+            "@value": "Alqami 3D Heritage Sculpture",
+            "@language": "en"
+          },
+          "bf:subtitle": {
+            "@value": "Spatial 3D Cultural Geometry Monolith",
+            "@language": "en"
+          }
+        }
+      ],
+      "bf:responsibilityStatement": [
+        {
+          "@value": "استوديو علقمي للنمذجة الرقمية التراثية",
+          "@language": "ar"
+        },
+        {
+          "@value": "Alqami Spatial Heritage Labs",
+          "@language": "en"
+        }
+      ],
+      "bf:media": {
+        "@id": "http://id.loc.gov/vocabulary/mediaTypes/n",
+        "rdfs:label": "unmediated"
+      },
+      "bf:carrier": {
+        "@id": "http://id.loc.gov/vocabulary/carriers/nr",
+        "rdfs:label": "object"
+      },
+      "bf:dimensions": "35 × 35 × 45 سم",
+      "bf:identifiedBy": {
+        "@type": "bf:Local",
+        "rdf:value": "ALQ-MSH-010",
+        "bf:assigner": {
+          "@type": "bf:Agent",
+          "rdfs:label": "ALQAMI"
+        }
+      },
+      "bf:note": [
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "material",
+          "rdfs:label": [
+            {
+              "@value": "راتنج بولي صلب، طلاء ميتاليك نحاسي وذهبي معتق",
+              "@language": "ar"
+            },
+            {
+              "@value": "High-density composite resin, antique bronze-gold patina",
+              "@language": "en"
+            }
+          ]
+        },
+        {
+          "@type": "bf:Note",
+          "bf:noteType": "condition",
+          "rdfs:label": [
+            {
+              "@value": "تحفة جديدة مصنوعة بدقة ميكرونية فائقة",
+              "@language": "ar"
+            },
+            {
+              "@value": "Pristine new condition with museum seal",
+              "@language": "en"
+            }
+          ]
+        }
+      ],
+      "bf:hasItem": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#item"
+      }
+    },
+    {
+      "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#item",
+      "@type": "bf:Item",
+      "bf:itemOf": {
+        "@id": "https://isaacrow.github.io/alqami6/catalogue/alqami-3d-heritage-sculpture#instance"
+      },
+      "bf:shelfMark": {
+        "@type": "bf:ShelfMark",
+        "rdfs:label": "MSH-ALQ-3D"
+      },
+      "bf:heldBy": {
+        "@type": "bf:Agent",
+        "rdfs:label": [
+          {
+            "@value": "مستودع علقمي الرقمي السحابي",
+            "@language": "ar"
+          },
+          {
+            "@value": "Alqami Cloud Repository",
+            "@language": "en"
+          }
+        ]
+      },
+      "bf:electronicLocator": {
+        "@id": "https://isaacrow.github.io/alqami6/models/meshy-model.glb"
+      },
+      "bf:note": {
+        "@type": "bf:Note",
+        "rdfs:label": [
+          {
+            "@value": "نموذج ثلاثي الأبعاد (glTF)",
+            "@language": "ar"
+          },
+          {
+            "@value": "3D model (glTF)",
+            "@language": "en"
+          }
+        ]
+      }
+    }
+  ]
+}
